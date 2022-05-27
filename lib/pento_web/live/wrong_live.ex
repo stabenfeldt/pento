@@ -42,15 +42,10 @@ defmodule PentoWeb.WrongLive do
       IO.puts "equal"
     end
 
-    if String.to_integer(guess) ==  @number_to_guess do
-      IO.puts "correct"
-      message = "Your guess: #{guess}. CORRECT!"
-    else
-      IO.puts "NOT correct"
-      message = "Your guess: #{guess}. Wrong. Guess again. "
-    end
+    score = socket.assigns.score
+    IO.puts "Score was #{score}"
 
-    score = socket.assigns.score - 1
+    score = calulate_new_score(score, guess)
 
     {
       :noreply,
@@ -63,4 +58,19 @@ defmodule PentoWeb.WrongLive do
     }
   end
 
+    def calulate_new_score(score, guess) do
+      if String.to_integer(guess) ==  @number_to_guess do
+        IO.puts "correct"
+        message = "Your guess: #{guess}. CORRECT!"
+        score = score + 1
+      else
+        IO.puts "NOT correct"
+        message = "Your guess: #{guess}. Wrong. Guess again. "
+        score = score - 1
+      end
+
+      IO.puts "Score is now #{score}"
+        score = score + 1
+      score
+    end
 end
