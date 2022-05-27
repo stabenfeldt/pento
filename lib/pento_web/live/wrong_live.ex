@@ -37,12 +37,11 @@ defmodule PentoWeb.WrongLive do
   def handle_event("guess", %{"number" => guess}=_data, socket) do
     IO.puts "@number_to_guess = #{@number_to_guess}"
     IO.puts "Guess is #{guess}"
-    message = ""
     if @number_to_guess == @number_to_guess do
       IO.puts "equal"
     end
 
-    score = calulate_new_score(socket.assigns.score, guess)
+    [score, message] = calulate_new_score(socket.assigns.score, guess)
 
     {
       :noreply,
@@ -59,11 +58,11 @@ defmodule PentoWeb.WrongLive do
       if String.to_integer(guess) ==  @number_to_guess do
         IO.puts "correct"
         message = "Your guess: #{guess}. CORRECT!"
-        score + 1
+        [score + 1, message]
       else
         IO.puts "NOT correct"
         message = "Your guess: #{guess}. Wrong. Guess again. "
-        score - 1
+        [score - 1, message]
       end
     end
 end
