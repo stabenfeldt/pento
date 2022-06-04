@@ -1,17 +1,17 @@
+
+#---
+# Excerpted from "Programming Phoenix LiveView",
+# published by The Pragmatic Bookshelf.
+# Copyrights apply to this code. It may not be used to create training material,
+# courses, books, articles, and the like. Contact us if you are in doubt.
+# We make no guarantees that this code is fit for any purpose.
+# Visit https://pragprog.com/titles/liveview for more book information.
+#---
 defmodule PentoWeb.WrongLive do
   use Phoenix.LiveView, layout: {PentoWeb.LayoutView, "live.html"}
 
-  @number_to_guess :rand.uniform(10)
-
   def mount(_params, _session, socket) do
-    {:ok, 
-      assign(socket, 
-        score: 0,
-        message: "Make a guess:",
-        number_to_guess: @number_to_guess,
-        time: DateTime.utc_now |> to_string
-      )
-    }
+    {:ok, assign(socket, score: 0, message: "Make a guess:")}
   end
 
   def render(assigns) do
@@ -19,8 +19,6 @@ defmodule PentoWeb.WrongLive do
     <h1>Your score: <%= @score %></h1>
     <h2>
       <%= @message %>
-    <br/>
-      It's <%= @time %>
     </h2>
     <h2>
       <%= for n <- 1..10 do %>
@@ -30,39 +28,16 @@ defmodule PentoWeb.WrongLive do
     """
   end
 
-  def time() do
-    DateTime.utc_now |> to_string
-  end
-
-  def handle_event("guess", %{"number" => guess}=_data, socket) do
-    IO.puts "@number_to_guess = #{@number_to_guess}"
-    IO.puts "Guess is #{guess}"
-    if @number_to_guess == @number_to_guess do
-      IO.puts "equal"
-    end
-
-    [score, message] = calulate_new_score(socket.assigns.score, guess)
+  def handle_event("guess", %{"number" => guess}=data, socket) do
+    message = "Your guess: #{guess}. Wrong. Guess again. "
+    score = socket.assigns.score - 1
 
     {
       :noreply,
       assign(
         socket,
         message: message,
-        score: score,
-        time: DateTime.utc_now |> to_string
-      )
-    }
+        score: score)}
   end
 
-    def calulate_new_score(score, guess) do
-      if String.to_integer(guess) ==  @number_to_guess do
-        IO.puts "correct"
-        message = "Your guess: #{guess}. CORRECT!"
-        [score + 1, message]
-      else
-        IO.puts "NOT correct"
-        message = "Your guess: #{guess}. Wrong. Guess again. "
-        [score - 1, message]
-      end
-    end
 end
