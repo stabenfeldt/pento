@@ -20,12 +20,25 @@ defmodule PentoWeb.WrongLive do
     <h2>
       <%= @message %>
     </h2>
+
     <h2>
       <%= for n <- 1..10 do %>
         <a href="#" phx-click="guess" phx-value-number= {n} ><%= n %></a>
       <% end %>
     </h2>
+    <a href="#" phx-click="rock" phx-value-name= "martin" ><%= "Martin" %></a>
     """
+  end
+
+  def handle_event("rock", %{"name" => name}=data, socket) do
+    message = "Nice to meet you #{name}"
+
+    {
+      :noreply,
+      assign(
+        socket,
+        message: message,
+      )}
   end
 
   def handle_event("guess", %{"number" => guess}=data, socket) do
