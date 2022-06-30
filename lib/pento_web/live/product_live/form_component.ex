@@ -11,40 +11,9 @@ defmodule PentoWeb.ProductLive.FormComponent do
      socket
      |> assign(assigns)
      |> assign(:changeset, changeset)
-     |> allow_upload(:image,
-       accept: ~w(.jpg .jpeg .png),
-       max_entries: 1,
-       max_file_size: 9_000_000,
-       auto_upload: true,
-       progress: &handle_progress/3
-     )}
+    }
   end
    
-  def handle_progress(:image, entry, socket) do
-    :timer.sleep(200)
-    if entry.done? do
-      {:ok, path} = 
-        consume_uploaded_entry(
-          socket,
-          entry,
-          &upload_static_file(&1, socket)
-        )
-      {:noreply, 
-        socket
-        |> put_flash(:info, "file #{entry.client_name} uploaded")
-        |> assign(:image_upload, path) 
-      }
-    else
-      {:noreply, socket}
-    end
-  end
-
-  defp upload_static_file(%{path: path}, socket) do
-    dest = Path.join("priv/static/images", Path.basename(path))
-    File.cp!(path, dest)
-    {:ok, Routes.static_path(socket, "/images/#{Path.basename(dest)}")}
-  end
-
   @impl true
   def handle_event("validate", %{"product" => product_params}, socket) do
     changeset =
