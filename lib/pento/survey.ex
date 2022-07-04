@@ -6,7 +6,7 @@ defmodule Pento.Survey do
   import Ecto.Query, warn: false
   alias Pento.Repo
 
-  alias Pento.Survey.Demographics
+  alias Pento.Survey.Demographic
 
   @doc """
   Returns the list of demographics.
@@ -14,28 +14,28 @@ defmodule Pento.Survey do
   ## Examples
 
       iex> list_demographics()
-      [%Demographics{}, ...]
+      [%Demographic{}, ...]
 
   """
   def list_demographics do
-    Repo.all(Demographics)
+    Repo.all(Demographic)
   end
 
   @doc """
   Gets a single demographics.
 
-  Raises `Ecto.NoResultsError` if the Demographics does not exist.
+  Raises `Ecto.NoResultsError` if the Demographic does not exist.
 
   ## Examples
 
       iex> get_demographics!(123)
-      %Demographics{}
+      %Demographic{}
 
       iex> get_demographics!(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_demographics!(id), do: Repo.get!(Demographics, id)
+  def get_demographics!(id), do: Repo.get!(Demographic, id)
 
   @doc """
   Creates a demographics.
@@ -43,15 +43,15 @@ defmodule Pento.Survey do
   ## Examples
 
       iex> create_demographics(%{field: value})
-      {:ok, %Demographics{}}
+      {:ok, %Demographic{}}
 
       iex> create_demographics(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
   def create_demographics(attrs \\ %{}) do
-    %Demographics{}
-    |> Demographics.changeset(attrs)
+    %Demographic{}
+    |> Demographic.changeset(attrs)
     |> Repo.insert()
   end
 
@@ -61,15 +61,15 @@ defmodule Pento.Survey do
   ## Examples
 
       iex> update_demographics(demographics, %{field: new_value})
-      {:ok, %Demographics{}}
+      {:ok, %Demographic{}}
 
       iex> update_demographics(demographics, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_demographics(%Demographics{} = demographics, attrs) do
+  def update_demographics(%Demographic{} = demographics, attrs) do
     demographics
-    |> Demographics.changeset(attrs)
+    |> Demographic.changeset(attrs)
     |> Repo.update()
   end
 
@@ -79,13 +79,13 @@ defmodule Pento.Survey do
   ## Examples
 
       iex> delete_demographics(demographics)
-      {:ok, %Demographics{}}
+      {:ok, %Demographic{}}
 
       iex> delete_demographics(demographics)
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_demographics(%Demographics{} = demographics) do
+  def delete_demographics(%Demographic{} = demographics) do
     Repo.delete(demographics)
   end
 
@@ -95,11 +95,11 @@ defmodule Pento.Survey do
   ## Examples
 
       iex> change_demographics(demographics)
-      %Ecto.Changeset{data: %Demographics{}}
+      %Ecto.Changeset{data: %Demographic{}}
 
   """
-  def change_demographics(%Demographics{} = demographics, attrs \\ %{}) do
-    Demographics.changeset(demographics, attrs)
+  def change_demographics(%Demographic{} = demographics, attrs \\ %{}) do
+    Demographic.changeset(demographics, attrs)
   end
 
   alias Pento.Survey.Rating
