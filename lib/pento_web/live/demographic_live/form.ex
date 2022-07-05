@@ -13,13 +13,13 @@ defmodule PentoWeb.DemographicLive.Form do
     }
   end
 
-  defp assign_demographic(
-    %{assigns: %{current_user: current_user}} = socket) do
-      assign(socket, :demographic, %Demographic{user_id: current_user.id})
-  end
-
   defp assign_changeset(
     %{assigns: %{demographic: demographic}} = socket) do
       assign(socket, :changeset, Survey.change_demographic(demographic))
   end
+
+  defp assign_demographic(%{assigns: %{current_user: current_user}} = socket) do
+    assign(socket, :demographic, %Demographic{user_id: current_user.id}) 
+  end
+
 end
