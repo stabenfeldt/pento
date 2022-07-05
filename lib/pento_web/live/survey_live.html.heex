@@ -1,8 +1,18 @@
 <section class="row">
- <h2> Survey </h2>
+ <h2> Survey </h2> 
 </section>
 
-<section class="row">
-  <Component.hero content="Hello from the functional component" />
-</section>
+  <section class="row">
+    <Component.hero content="Hello from the functional component">
+      <div> Hello from Function´s Slot </div>
+    </Component.hero>
+  </section>
+
 <Title.my_title name="My Name" /> 
+
+<%= if @demographic do %>
+  <DemographicLive.Show.details demographic={@demographic} />
+<% else %>
+  <h2> Demographic form coming soon </h2>
+<% end %>
+
