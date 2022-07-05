@@ -4,7 +4,7 @@ defmodule Pento.SurveyTest do
   alias Pento.Survey
 
   describe "demographics" do
-    alias Pento.Survey.Demographics
+    alias Pento.Survey.Demographic
 
     import Pento.SurveyFixtures
 
@@ -23,7 +23,7 @@ defmodule Pento.SurveyTest do
     test "create_demographics/1 with valid data creates a demographics" do
       valid_attrs = %{gender: "some gender", year_of_birth: 42}
 
-      assert {:ok, %Demographics{} = demographics} = Survey.create_demographics(valid_attrs)
+      assert {:ok, %Demographic{} = demographics} = Survey.create_demographics(valid_attrs)
       assert demographics.gender == "some gender"
       assert demographics.year_of_birth == 42
     end
@@ -36,7 +36,7 @@ defmodule Pento.SurveyTest do
       demographics = demographics_fixture()
       update_attrs = %{gender: "some updated gender", year_of_birth: 43}
 
-      assert {:ok, %Demographics{} = demographics} = Survey.update_demographics(demographics, update_attrs)
+      assert {:ok, %Demographic{} = demographics} = Survey.update_demographics(demographics, update_attrs)
       assert demographics.gender == "some updated gender"
       assert demographics.year_of_birth == 43
     end
@@ -49,7 +49,7 @@ defmodule Pento.SurveyTest do
 
     test "delete_demographics/1 deletes the demographics" do
       demographics = demographics_fixture()
-      assert {:ok, %Demographics{}} = Survey.delete_demographics(demographics)
+      assert {:ok, %Demographic{}} = Survey.delete_demographics(demographics)
       assert_raise Ecto.NoResultsError, fn -> Survey.get_demographics!(demographics.id) end
     end
 
