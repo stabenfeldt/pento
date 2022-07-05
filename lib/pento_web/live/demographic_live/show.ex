@@ -1,7 +1,6 @@
 defmodule PentoWeb.DemographicLive.Show do
   use Phoenix.Component
   use Phoenix.HTML
-  alias PentoWeb.DemographicLive.Form
 
   def details(assigns) do
     ~H"""
