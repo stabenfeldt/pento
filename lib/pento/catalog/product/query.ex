@@ -17,3 +17,5 @@ defmodule Pento.Catalog.Product.Query do
 		|> preload(ratings: ^ratings_query)
 	end
 
+end
+
