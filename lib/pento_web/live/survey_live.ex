@@ -3,7 +3,6 @@ defmodule PentoWeb.SurveyLive do
   alias __MODULE__.Component
   alias __MODULE__.Title
   alias Pento.Survey
-  alias PentoWeb.DemographicLive.Form
 
 	def mount(_params, _session, socket) do
     {:ok, 
